@@ -1,0 +1,188 @@
+DROP TABLE IF EXISTS Utilisateur ;
+CREATE TABLE Utilisateur (id_utilisateur_Utilisateur INT AUTO_INCREMENT NOT NULL,
+nom_utilisateur_Utilisateur VARCHAR(100),
+prenom_utilisateur_Utilisateur VARCHAR(100),
+password_utilisateur_Utilisateur VARCHAR(100),
+email_utilisateur_Utilisateur VARCHAR(100),
+genre_utilisateur_Utilisateur INTEGER,
+telephone_utilisateur_Utilisateur VARCHAR(100),
+estAdmin_Utilisateur BOOL,
+id_role_Role INTEGER,
+caddy_id_caddy_caddy INTEGER,
+PRIMARY KEY (id_utilisateur_Utilisateur)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS adresse ;
+CREATE TABLE adresse (id_adresse_adresse INT AUTO_INCREMENT NOT NULL,
+rue_adresse VARCHAR(100),
+numero_adresse INTEGER,
+numero_appartement_adresse INTEGER,
+id_pays_Pays INTEGER,
+id_ville_Ville INTEGER,
+PRIMARY KEY (id_adresse_adresse)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Pays ;
+CREATE TABLE Pays (id_pays_Pays INT AUTO_INCREMENT NOT NULL,
+nom_pays_Pays VARCHAR(100),
+PRIMARY KEY (id_pays_Pays)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Ville ;
+CREATE TABLE Ville (id_ville_Ville INT AUTO_INCREMENT NOT NULL,
+nom_ville_Ville VARCHAR(100),
+PRIMARY KEY (id_ville_Ville)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Commentaire ;
+CREATE TABLE Commentaire (id_commentaire_Commentaire INT AUTO_INCREMENT NOT NULL,
+Titre_commentaire_Commentaire VARCHAR(100),
+Contenu_commentaire_Commentaire VARCHAR(1024),
+Date_creartion_commentaire_Commentaire DATE,
+id_utilisateur_Utilisateur INTEGER,
+PRIMARY KEY (id_commentaire_Commentaire)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Role ;
+CREATE TABLE Role (id_role_Role INT AUTO_INCREMENT NOT NULL,
+nom_role_Role VARCHAR(100),
+PRIMARY KEY (id_role_Role)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Caddy ;
+CREATE TABLE Caddy (id_caddy_Caddy INT AUTO_INCREMENT NOT NULL,
+date_creation_caddy_Caddy DATE,
+utilisateur_id_utilisateur_utilisateur INTEGER,
+PRIMARY KEY (id_caddy_Caddy)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS produit_dans_caddy ;
+CREATE TABLE produit_dans_caddy (id_produit_dans_caddy_produit_dans_caddy INT AUTO_INCREMENT NOT NULL,
+quantite_produit_dans_caddy_produit_dans_caddy INT,
+prix_unitaire_produit_dans_caddy_produit_dans_caddy FLOAT,
+id_caddy_Caddy INTEGER,
+id_produit_Produit INTEGER,
+PRIMARY KEY (id_produit_dans_caddy_produit_dans_caddy)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Produit ;
+CREATE TABLE Produit (id_produit_Produit INT AUTO_INCREMENT NOT NULL,
+nom_produit_Produit VARCHAR(100),
+description_produit_Produit VARCHAR(256),
+prix_produit_Produit FLOAT,
+stock_produit_Produit INT,
+promotion_id_promotion_promotion INTEGER,
+PRIMARY KEY (id_produit_Produit)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Promotion ;
+CREATE TABLE Promotion (id_promotion_Promotion INT AUTO_INCREMENT NOT NULL,
+pourcent_promotion_Promotion FLOAT,
+code_promotion_Promotion VARCHAR(100),
+date_start_promotion_Promotion DATE,
+date_end_promotion_Promotion DATE,
+PRIMARY KEY (id_promotion_Promotion)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Images ;
+CREATE TABLE Images (id_image_Images INT AUTO_INCREMENT NOT NULL,
+chemin_image_Images VARCHAR(256),
+PRIMARY KEY (id_image_Images)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Video ;
+CREATE TABLE Video (id_video_Video INT AUTO_INCREMENT NOT NULL,
+chemin_video_Video VARCHAR(256),
+PRIMARY KEY (id_video_Video)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS createOrder ;
+CREATE TABLE createOrder (id_create_order_createOrder INT AUTO_INCREMENT NOT NULL,
+date_create_order_createOrder DATE,
+id_utilisateur_Utilisateur INTEGER,
+PRIMARY KEY (id_create_order_createOrder)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS produitDansCommande ;
+CREATE TABLE produitDansCommande (id_produit_dans_commande_produitDansComande INT AUTO_INCREMENT NOT NULL,
+quantite_produit_dans_commande_produitDansComande INT,
+prix_produit_dans_scommande_produitDansComande FLOAT,
+id_create_order_createOrder INTEGER,
+id_devise_Device INTEGER,
+id_produit_Produit INTEGER,
+livraison_produit_id_livraison_produit_livraison_produit INTEGER,
+PRIMARY KEY (id_produit_dans_commande_produitDansComande)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Devise ;
+CREATE TABLE Devise (id_devise_Device INT AUTO_INCREMENT NOT NULL,
+nom_devise_Device VARCHAR(100),
+PRIMARY KEY (id_devise_Device)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS livraison_produit ;
+CREATE TABLE livraison_produit (id_livraison_produit_livraison_produit INT AUTO_INCREMENT NOT NULL,
+quantite_livraison_produit_livraison_produit INTEGER,
+produitdanscommande_id_produit_dans_commande_produitdanscomande INTEGER,
+id_details_livraison_details_livraison INTEGER,
+PRIMARY KEY (id_livraison_produit_livraison_produit)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS details_livraison ;
+CREATE TABLE details_livraison (id_details_livraison_details_livraison INT AUTO_INCREMENT NOT NULL,
+date_details_livraison_details_livraison DATE,
+heure_details_livraison_details_livraison TIME,
+status_details_livraison_details_livraison VARCHAR(20),
+id_adresse_adresse INTEGER,
+PRIMARY KEY (id_details_livraison_details_livraison)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS ligneFacture ;
+CREATE TABLE ligneFacture (id_ligne_facture_ligneFacture INT AUTO_INCREMENT NOT NULL,
+ligne_facture_quantite_ligneFacture INTEGER,
+ligne_facture_prix_ligneFacture FLOAT,
+id_livraison_produit_livraison_produit INTEGER,
+id_facture_Facture INTEGER,
+id_method_paiement_MethodPaiement INTEGER,
+PRIMARY KEY (id_ligne_facture_ligneFacture)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Facture ;
+CREATE TABLE Facture (id_facture_Facture INT AUTO_INCREMENT NOT NULL,
+factrure_numero_Facture INTEGER,
+facture_date_creation_Facture DATE,
+preuve_de_paiement_Facture VARCHAR(100),
+PRIMARY KEY (id_facture_Facture)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS MethodPaiement ;
+CREATE TABLE MethodPaiement (id_method_paiement_MethodPaiement INT AUTO_INCREMENT NOT NULL,
+method_paiement_nom_MethodPaiement VARCHAR(50),
+PRIMARY KEY (id_method_paiement_MethodPaiement)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS HabiteAdresse ;
+CREATE TABLE HabiteAdresse (id_adresse_adresse INTEGER AUTO_INCREMENT NOT NULL,
+id_utilisateur_Utilisateur INTEGER NOT NULL,
+PRIMARY KEY (id_adresse_adresse,
+ id_utilisateur_Utilisateur)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS PossederImage ;
+CREATE TABLE PossederImage (id_image_Images INTEGER AUTO_INCREMENT NOT NULL,
+id_produit_Produit INTEGER NOT NULL,
+PRIMARY KEY (id_image_Images,
+ id_produit_Produit)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS PossederVideo ;
+CREATE TABLE PossederVideo (id_video_Video INTEGER AUTO_INCREMENT NOT NULL,
+id_produit_Produit INTEGER NOT NULL,
+PRIMARY KEY (id_video_Video,
+ id_produit_Produit)) ENGINE=InnoDB;
+
+ALTER TABLE Utilisateur ADD CONSTRAINT FK_Utilisateur_id_role_Role FOREIGN KEY (id_role_Role) REFERENCES Role (id_role_Role);
+
+ALTER TABLE Utilisateur ADD CONSTRAINT FK_Utilisateur_caddy_id_caddy_caddy FOREIGN KEY (caddy_id_caddy_caddy) REFERENCES Caddy (id_caddy_Caddy);
+ALTER TABLE adresse ADD CONSTRAINT FK_adresse_id_pays_Pays FOREIGN KEY (id_pays_Pays) REFERENCES Pays (id_pays_Pays);
+ALTER TABLE adresse ADD CONSTRAINT FK_adresse_id_ville_Ville FOREIGN KEY (id_ville_Ville) REFERENCES Ville (id_ville_Ville);
+ALTER TABLE Commentaire ADD CONSTRAINT FK_Commentaire_id_utilisateur_Utilisateur FOREIGN KEY (id_utilisateur_Utilisateur) REFERENCES Utilisateur (id_utilisateur_Utilisateur);
+ALTER TABLE Caddy ADD CONSTRAINT FK_Caddy_utilisateur_id_utilisateur_utilisateur FOREIGN KEY (utilisateur_id_utilisateur_utilisateur) REFERENCES Utilisateur (id_utilisateur_Utilisateur);
+ALTER TABLE produit_dans_caddy ADD CONSTRAINT FK_produit_dans_caddy_id_caddy_Caddy FOREIGN KEY (id_caddy_Caddy) REFERENCES Caddy (id_caddy_Caddy);
+ALTER TABLE produit_dans_caddy ADD CONSTRAINT FK_produit_dans_caddy_id_produit_Produit FOREIGN KEY (id_produit_Produit) REFERENCES Produit (id_produit_Produit);
+ALTER TABLE Produit ADD CONSTRAINT FK_Produit_promotion_id_promotion_promotion FOREIGN KEY (promotion_id_promotion_promotion) REFERENCES Promotion (id_promotion_Promotion);
+ALTER TABLE createOrder ADD CONSTRAINT FK_createOrder_id_utilisateur_Utilisateur FOREIGN KEY (id_utilisateur_Utilisateur) REFERENCES Utilisateur (id_utilisateur_Utilisateur);
+ALTER TABLE produitDansCommande ADD CONSTRAINT FK_produitDansCommande_id_create_order_createOrder FOREIGN KEY (id_create_order_createOrder) REFERENCES createOrder (id_create_order_createOrder);
+ALTER TABLE produitDansCommande ADD CONSTRAINT FK_produitDansCommande_id_devise_Device FOREIGN KEY (id_devise_Device) REFERENCES Devise (id_devise_Device);
+ALTER TABLE produitDansCommande ADD CONSTRAINT FK_produitDansCommande_id_produit_Produit FOREIGN KEY (id_produit_Produit) REFERENCES Produit (id_produit_Produit);
+ALTER TABLE produitDansCommande ADD CONSTRAINT FK_produitDansCommande_livraison_produit_id_livraison_produit_livraison_produit FOREIGN KEY (livraison_produit_id_livraison_produit_livraison_produit) REFERENCES livraison_produit (id_livraison_produit_livraison_produit);
+ALTER TABLE livraison_produit ADD CONSTRAINT FK_livraison_produit_produitdanscommande_id_produit_dans_commande_produitdanscomande FOREIGN KEY (produitdanscommande_id_produit_dans_commande_produitdanscomande) REFERENCES produitDansCommande (id_produit_dans_commande_produitDansComande);
+ALTER TABLE livraison_produit ADD CONSTRAINT FK_livraison_produit_id_details_livraison_details_livraison FOREIGN KEY (id_details_livraison_details_livraison) REFERENCES details_livraison (id_details_livraison_details_livraison);
+ALTER TABLE details_livraison ADD CONSTRAINT FK_details_livraison_id_adresse_adresse FOREIGN KEY (id_adresse_adresse) REFERENCES adresse (id_adresse_adresse);
+ALTER TABLE ligneFacture ADD CONSTRAINT FK_ligneFacture_id_livraison_produit_livraison_produit FOREIGN KEY (id_livraison_produit_livraison_produit) REFERENCES livraison_produit (id_livraison_produit_livraison_produit);
+ALTER TABLE ligneFacture ADD CONSTRAINT FK_ligneFacture_id_facture_Facture FOREIGN KEY (id_facture_Facture) REFERENCES Facture (id_facture_Facture);
+ALTER TABLE ligneFacture ADD CONSTRAINT FK_ligneFacture_id_method_paiement_MethodPaiement FOREIGN KEY (id_method_paiement_MethodPaiement) REFERENCES MethodPaiement (id_method_paiement_MethodPaiement);
+ALTER TABLE HabiteAdresse ADD CONSTRAINT FK_HabiteAdresse_id_adresse_adresse FOREIGN KEY (id_adresse_adresse) REFERENCES adresse (id_adresse_adresse);
+ALTER TABLE HabiteAdresse ADD CONSTRAINT FK_HabiteAdresse_id_utilisateur_Utilisateur FOREIGN KEY (id_utilisateur_Utilisateur) REFERENCES Utilisateur (id_utilisateur_Utilisateur);
+ALTER TABLE PossederImage ADD CONSTRAINT FK_PossederImage_id_image_Images FOREIGN KEY (id_image_Images) REFERENCES Images (id_image_Images);
+ALTER TABLE PossederImage ADD CONSTRAINT FK_PossederImage_id_produit_Produit FOREIGN KEY (id_produit_Produit) REFERENCES Produit (id_produit_Produit);
+ALTER TABLE PossederVideo ADD CONSTRAINT FK_PossederVideo_id_video_Video FOREIGN KEY (id_video_Video) REFERENCES Video (id_video_Video);
+ALTER TABLE PossederVideo ADD CONSTRAINT FK_PossederVideo_id_produit_Produit FOREIGN KEY (id_produit_Produit) REFERENCES Produit (id_produit_Produit);
